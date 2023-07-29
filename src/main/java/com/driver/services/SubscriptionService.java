@@ -75,30 +75,27 @@ public class SubscriptionService {
         }
 
         Subscription subscription= user.getSubscription();
-        if(subscription==null){
-            return null;
-        }
+
         SubscriptionType subscriptionType= subscription.getSubscriptionType();
-        if(subscriptionType==null){
-            return null;
-        }
+
         int currentFair=subscription.getTotalAmountPaid();
         int newFairAfterUpdate=0;
         if(subscriptionType.equals(SubscriptionType.ELITE)){
             throw new Exception("Already the best Subscription");
         }
         else if(subscriptionType.equals(SubscriptionType.BASIC)){
-            newFairAfterUpdate= currentFair+ 800 + (250*subscription.getNoOfScreensSubscribed());
+            newFairAfterUpdate= currentFair+ 300 + (50*subscription.getNoOfScreensSubscribed());
             subscription.setSubscriptionType(SubscriptionType.PRO);
         }
         else if(subscriptionType.equals(SubscriptionType.PRO)){
-            newFairAfterUpdate= currentFair + 1000 + (350*subscription.getNoOfScreensSubscribed());
+            newFairAfterUpdate= currentFair + 200 + (100*subscription.getNoOfScreensSubscribed());
             subscription.setSubscriptionType(SubscriptionType.ELITE);
         }
 
         subscription.setTotalAmountPaid(newFairAfterUpdate);
         user.setSubscription(subscription);
         subscriptionRepository.save(subscription);
+
 
 
         return newFairAfterUpdate-currentFair;

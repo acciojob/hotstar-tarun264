@@ -39,8 +39,11 @@ public class WebSeriesService {
         webSeries1.setRating(webSeriesEntryDto.getRating());
         webSeries1.setSubscriptionType(webSeriesEntryDto.getSubscriptionType());
 
-        ProductionHouse productionHouse = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId()).get();
-
+        Optional<ProductionHouse> productionHouseOpt = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId());
+        ProductionHouse productionHouse = productionHouseOpt.get();
+        if(productionHouse == null){
+            throw new Exception("Production house is not present");
+        }
         // setting the webseries to production house
         webSeries1.setProductionHouse(productionHouse);
 

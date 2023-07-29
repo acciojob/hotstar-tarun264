@@ -36,6 +36,9 @@ public class UserService {
         //Hint: Take out all the Webseries from the WebRepository
 
         User user= userRepository.findById(userId).get();
+        if(user==null){
+            return null;
+        }
         Subscription subType=user.getSubscription();
 
         List<WebSeries> webSeriesList = webSeriesRepository.findAll();

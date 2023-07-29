@@ -46,12 +46,11 @@ public class WebSeriesService {
 
         productionHouse.getWebSeriesList().add(webSeries1);
 
-        int average =0;
-        List<WebSeries> webSeriesArrayList= productionHouse.getWebSeriesList();
-        for(WebSeries webSeries2:webSeriesArrayList){
-            average+=webSeries2.getRating();
-        }
-        productionHouse.setRatings(average/webSeriesArrayList.size());
+        double oldRating = productionHouse.getRatings();
+        double newRating = webSeries1.getRating();
+        int size = productionHouse.getWebSeriesList().size();
+        double updateRating = oldRating + (newRating - oldRating)/size;
+        productionHouse.setRatings(updateRating);
 
         productionHouseRepository.save(productionHouse);
         WebSeries savedWebseries= webSeriesRepository.save(webSeries);

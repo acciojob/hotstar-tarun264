@@ -27,6 +27,9 @@ public class SubscriptionService {
         //Save The subscription Object into the Db and return the total Amount that user has to pay
 
         User user= userRepository.findById(subscriptionEntryDto.getUserId()).get();
+        if(user==null){
+            return null;
+        }
 // dto to entity
         Subscription subscription= new Subscription();
         subscription.setSubscriptionType(subscriptionEntryDto.getSubscriptionType());
@@ -70,7 +73,13 @@ public class SubscriptionService {
         }
 
         Subscription subscription= user.getSubscription();
+        if(subscription==null){
+            return null;
+        }
         SubscriptionType subscriptionType= subscription.getSubscriptionType();
+        if(subscriptionType==null){
+            return null;
+        }
         int difference=0;
         if(subscriptionType.equals(SubscriptionType.ELITE)){
             throw new Exception("Already the best Subscription");

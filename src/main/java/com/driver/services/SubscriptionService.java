@@ -102,7 +102,6 @@ public class SubscriptionService {
         }
         return totalReveneue;
 
-
     }
 
 }

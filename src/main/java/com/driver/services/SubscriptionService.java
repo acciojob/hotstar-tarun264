@@ -65,6 +65,9 @@ public class SubscriptionService {
         //In all other cases just try to upgrade the subscription and tell the difference of price that user has to pay
         //update the subscription in the repository
         User user=userRepository.findById(userId).get();
+        if(user==null){
+            return null;
+        }
 
         Subscription subscription= user.getSubscription();
         SubscriptionType subscriptionType= subscription.getSubscriptionType();
@@ -94,6 +97,9 @@ public class SubscriptionService {
         //Hint is to use findAll function from the SubscriptionDb
 
         List<Subscription> subscriptionList= subscriptionRepository.findAll();
+        if(subscriptionList.size()==0){
+            return null;
+        }
 
         int totalReveneue=0;
 
